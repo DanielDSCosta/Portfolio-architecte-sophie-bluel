@@ -1,26 +1,29 @@
 const gallery = document.querySelector(".gallery");
 let works = [];
 
-const fetchWorks = async () => {
+/* Function pour aller chercher les fichiers dans l'API */
+async function fetchWorks() {
   const response = await fetch("http://localhost:5678/api/works");
+  const data = await response.json();
+  works = data;
+  createGallery(works);
+}
+fetchWorks();
 
-  return response.json();
-};
-
-function createGallery(works) {
+/* Function pour créer la gallerie */
+function createGallery(objet) {
   let galleries = "";
-
-  for (let work of works) {
+  for (let work of objet) {
     galleries += `
       <figure>
           <img src="${work.imageUrl}">
           <figcaption>${work.title}</figcaption>
       </figure>`;
   }
-
-  gallery.innerHtml = galleries;
+  gallery.innerHTML = galleries;
 }
 
+/* Function pour créer les boutons */
 function createButtonFilters() {
   document.querySelector(".filtres").innerHTML = `
   <button class="buttonTous">Tous</button>
@@ -29,6 +32,7 @@ function createButtonFilters() {
   <button class="buttonHotelRestaurants">Hôtels & restaurants</button>`;
 }
 
+/* Initialisation de la variable CATEGORIES */
 const CATEGORIES = {
   reset: 0,
   objects: 1,
@@ -36,16 +40,18 @@ const CATEGORIES = {
   hostel: 3,
 };
 
+/* Gestion du changement de categories */
 const handleFilterWorks = (categoryId = CATEGORIES.objects) => {
-  if (catergoryId === CATEGORIES.reset) return works;
+  if (categoryId === CATEGORIES.reset) return works;
 
   return works.filter((event) => {
     return event.category.id === categoryId;
   });
 };
 
+/* Gestion du Filled au click de la categorie */
 const toggleActiveButtonStyles = (element) => {
-  document.querySelector(".filtres").forEach((filterElement) => {
+  document.querySelectorAll(".filtres").forEach((filterElement) => {
     if (filterElement === element) {
       return filterElement.classList.add("btnFilled");
     }
@@ -54,10 +60,12 @@ const toggleActiveButtonStyles = (element) => {
   });
 };
 
-works = fetchWorks();
+/* Lancement des functions */
+fetchWorks(works);
 createGallery(works);
 createButtonFilters();
 
+/* Evenement on click celon les boutons */
 document.querySelector(".buttonTous").addEventListener("click", () => {
   const workFiltered = handleFilterWorks(CATEGORIES.reset);
 
