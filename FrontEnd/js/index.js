@@ -51,13 +51,15 @@ const handleFilterWorks = (categoryId = CATEGORIES.objects) => {
 
 /* Gestion du Filled au click de la categorie */
 const toggleActiveButtonStyles = (element) => {
-  document.querySelectorAll(".filtres").forEach((filterElement) => {
-    if (filterElement === element) {
-      return filterElement.classList.add("btnFilled");
-    }
+  Array.from(document.querySelector(".filtres").children).forEach(
+    (filterElement) => {
+      if (filterElement === element) {
+        return filterElement.classList.add("btnFilled");
+      }
 
-    filterElement.classList.remove("btnFilled");
-  });
+      filterElement.classList.remove("btnFilled");
+    }
+  );
 };
 
 /* Lancement des functions */
