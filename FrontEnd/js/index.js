@@ -97,3 +97,59 @@ document
     createGallery(workFiltered);
     toggleActiveButtonStyles(document.querySelector(".buttonHotelRestaurants"));
   });
+
+/* LOGIN et Modale */
+
+/* Recupère les données dans le storage */
+const token = localStorage.getItem("token");
+
+// Je cree le banner en mode edition
+const createBanner = () => {
+  const divBanner = document.createElement("div");
+  divBanner.className = "loggedIn banner";
+  document.querySelector("body").prepend(divBanner);
+  document.querySelector(".banner").innerHTML = `
+    <i class="fa-regular fa-pen-to-square"></i>
+	<p>Mode édition</p>
+	<button>publier les changements</button>
+    `;
+};
+
+// Je check si le token est dans le localstorage si oui je montre le banner et les boutons modifier
+// sinon je montre les boutons pour filtrer les travaux
+const userLoginCheck = () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    if (token != null) {
+      changeLoginToLogout();
+      createBanner();
+      createModifierBtns();
+    } else {
+      createButtonFilters();
+    }
+  });
+};
+userLoginCheck();
+
+// Je change le nom login vers logout en mode edition
+const changeLoginToLogout = () => {
+  const logoutElement = document.getElementById("logout");
+  logoutElement.textContent = "logout";
+  logoutElement.addEventListener("click", () => {
+    localStorage.clear("token");
+  });
+};
+
+// Je cree les 2 boutons pour les modifications en mode edition,
+// avec l'ecoute pour ouvrir et fermer la modale
+const createModifierBtns = () => {
+  document.querySelector("#introduction figure figcaption").innerHTML = `
+    <p><i class="fa-regular fa-pen-to-square"></i> modifier</p>`;
+  const modifier = "modifier";
+  document.querySelector("#portfolio span").innerHTML = `
+    <a id="linkModal"><i class="fa-regular fa-pen-to-square"></i> ${modifier}</a>`;
+  document.querySelector("#linkModal").addEventListener("click", openModal);
+  document
+    .querySelector("#modal-close-btn")
+    .addEventListener("click", closeModal);
+};
