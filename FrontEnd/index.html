@@ -12,8 +12,17 @@
 	
 </head>
 <body>
+	<div class="loggedIn banner">
+		<i class="fa-regular fa-pen-to-square"></i>
+	</div>
+	</div>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<section id="editBanner" class="editBanner" style="display: none;">   <p class="editBannerElement"> 
+        <i class="fa fa-light fa-pen-to-square" aria-hidden="true"></i> 
+        Mode Edition</p>
+        <button id="publishChange" class="publishBtn editBannerElement">publier les changements</button>
+    </section>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="#portfolio">projets</a> </li>
@@ -28,7 +37,7 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<figcaption class="loggedIn"></figcaption>
+			<a class="link-modal-intro"><i class="fa-regular fa-pen-to-square"></i> </a>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,13 +45,20 @@
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
+		<div id="editProfilePicPrompt" class="editProfilePicPrompt" style="display: none;"><p class="editProfilePicInnerText"><a href="#modale" class="openModale">
+			<i class="fa fa-light fa-pen-to-square" aria-hidden="true"></i> 
+			modifier </a></p>
+			</div>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets<span class="loggedIn"></span></h2>
+		<h2>Mes Projets<span class="loggedIn"><a class="link-modal"><i class="fa-regular fa-pen-to-square"></i> modifier</a></span></h2>
 
 		<!-- ajout du filtre -->
 		<div class="filtres"></div>
 		<div class="gallery"></div>
+		<a href="#modale" class="openModale">
+			<i class="fa fa-light fa-pen-to-square" aria-hidden="true"></i> 
+			modifier </a>
 			
 		</section>
 
@@ -59,6 +75,54 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+
+	<aside id="modale" class="modale" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="modaleTitle" style="display:none">
+        <div class="modale-wrapper modale-stop">
+        <a href="#" class="closeModale"><i class="fa-solid fa-x"></i></a>
+        <div class="modale1">
+            <h3 class="modaleTitle" id="modaleTitle">
+                Galerie Photo
+            </h3>
+            <div class="modaleContentCatalogue" id="modaleContentCatalogue">
+            
+            </div> 
+            <div class="modaleContentAddWorks" id="modaleContentAddworks">
+                
+                <input type="submit" value="Ajouter une photo" id="picAddBtn">
+                <a href="#" id="selfDestructBtn">Supprimer la galerie</a>
+            </div>
+        </div>
+        <div class="modale2" style="display: none;">
+            <a href="#" class="arrowLeft"> <i class="fa fa-light fa-arrow-left" aria-hidden="true"></i></a>
+            <h3 class="modaleTitle" id="modaleTitle">
+                Ajout photo
+            </h3>
+                <div class="divAjoutPhotos" id="divAjoutPhotos">
+                   
+                    <div class="divAddWork">
+                    <div class="addWorkFormDiv">
+                    <form class="addWorkForm" method="post">
+                    <div class="dropzone" id="dropzone">
+                    <i class="fa fa-thin fa-image faAddImgSquare" aria-hidden="true"></i>
+                    <label class="addImgLabel"><p>+ Ajouter Photo </p><p class="addWorkFormMandatoryStar">*</p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required=""> </label>
+                    <p> jpg, png: 4mo max</p>
+                    </div>
+                      
+                        <label class="addWorkLabel"><p>Titre</p> <p class="addWorkFormMandatoryStar">*</p></label>
+                        <input class="addWorkTitle" name="title" required="">
+                        <label class="addWorkLabel"><p>Catégorie</p><p class="addWorkFormMandatoryStar">*</p></label>
+                        <select type="select" class="selectCategory" name="category" required="">
+                          <option value=""></option>
+                        <option class="selectCategoryElement" id="Objets" value="1">Objets</option><option class="selectCategoryElement" id="Appartements" value="2">Appartements</option><option class="selectCategoryElement" id="Hotels &amp; restaurants" value="3">Hotels &amp; restaurants</option></select>
+                        <hr class="hrLineAddWorkForm">
+                        <input type="submit" value="Ajouter Photo" id="confirmAddWork">
+                      </form>
+                    </div>
+                  </div>
+                           
+                </div>
+    </div></div></aside>
+
 </main>
 
 <footer>

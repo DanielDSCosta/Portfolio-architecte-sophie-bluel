@@ -103,27 +103,13 @@ document
 /* Recupère les données dans le storage */
 const token = localStorage.getItem("token");
 
-// Je cree le banner en mode edition
-const createBanner = () => {
-  const divBanner = document.createElement("div");
-  divBanner.className = "loggedIn banner";
-  document.querySelector("body").prepend(divBanner);
-  document.querySelector(".banner").innerHTML = `
-    <i class="fa-regular fa-pen-to-square"></i>
-	<p>Mode édition</p>
-	<button>publier les changements</button>
-    `;
-};
-
-// Je check si le token est dans le localstorage si oui je montre le banner et les boutons modifier
+// Je check si le token est dans le localstorage si oui je montre la bannière et les boutons modifier
 // sinon je montre les boutons pour filtrer les travaux
 const userLoginCheck = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     if (token != null) {
       changeLoginToLogout();
-      createBanner();
-      createModifierBtns();
     } else {
       createButtonFilters();
     }
@@ -140,16 +126,66 @@ const changeLoginToLogout = () => {
   });
 };
 
-// Je cree les 2 boutons pour les modifications en mode edition,
-// avec l'ecoute pour ouvrir et fermer la modale
-const createModifierBtns = () => {
-  document.querySelector("#introduction figure figcaption").innerHTML = `
-    <p><i class="fa-regular fa-pen-to-square"></i> modifier</p>`;
-  const modifier = "modifier";
-  document.querySelector("#portfolio span").innerHTML = `
-    <a id="linkModal"><i class="fa-regular fa-pen-to-square"></i> ${modifier}</a>`;
-  document.querySelector("#linkModal").addEventListener("click", openModal);
-  document
-    .querySelector("#modal-close-btn")
-    .addEventListener("click", closeModal);
-};
+// Récupérer les éléments de la modale
+const modale = document.getElementById("modale");
+const openModaleBtn = document.getElementById("picAddBtn");
+const closeModaleBtn = document.querySelector(".closeModale");
+const selfDestructBtn = document.getElementById("selfDestructBtn");
+const arrowLeftBtn = document.querySelector(".arrowLeft");
+const modale2 = document.querySelector(".modale2");
+
+// Fonction pour ouvrir la modale
+function openModale() {
+  modale.style.display = "block";
+}
+
+// Fonction pour fermer la modale
+function closeModale() {
+  modale.style.display = "none";
+}
+
+// Gérer l'événement clic sur le bouton pour ouvrir la modale
+openModaleBtn.addEventListener("click", openModale);
+
+// Gérer l'événement clic sur le bouton pour fermer la modale
+closeModaleBtn.addEventListener("click", closeModale);
+
+// Gérer l'événement clic sur le bouton pour supprimer la galerie
+selfDestructBtn.addEventListener("click", function (event) {
+  event.preventDefault(); // Empêcher le comportement de lien par défaut
+  if (confirm("Voulez-vous vraiment supprimer la galerie?")) {
+    // Code pour supprimer la galerie
+    console.log("Galerie supprimée !");
+    closeModale(); // Fermer la modale après la suppression
+  }
+});
+
+// Gérer l'événement clic sur le bouton pour revenir à la modale principale depuis modale2
+arrowLeftBtn.addEventListener("click", function (event) {
+  event.preventDefault(); // Empêcher le comportement de lien par défaut
+  modale2.style.display = "none"; // Cacher modale2
+});
+
+// Gérer l'événement clic sur le bouton "Ajouter une photo" pour afficher modale2
+openModaleBtn.addEventListener("click", function (event) {
+  event.preventDefault(); // Empêcher le comportement de lien par défaut
+  modale2.style.display = "block"; // Afficher modale2
+});
+
+// Fonction pour afficher ou masquer les boutons "modifier" en fonction de l'état de connexion
+function updateButtonVisibility() {
+  const isLoggedInUser = userLoginCheck(); // Vérifiez l'état de connexion en utilisant la fonction définie ci-dessus.
+  const editButtons = document.querySelectorAll(
+    ".fa fa-light fa-pen-to-square"
+  );
+
+  // Parcours de tous les boutons "modifier"
+  editButtons.forEach((a) => {
+    // Affiche le bouton si l'utilisateur est connecté
+    // ou masque le bouton si l'utilisateur n'est pas connecté
+    button.style.display = isLoggedInUser ? "block" : "none";
+  });
+}
+
+// Appelez la fonction pour mettre à jour la visibilité des boutons au chargement de la page.
+document.addEventListener("DOMContentLoaded", updateButtonVisibility);
