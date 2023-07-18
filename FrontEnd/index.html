@@ -7,6 +7,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel=“stylesheet” href=“https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css” integrity=“sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==” crossorigin=“anonymous” referrerpolicy=“no-referrer”>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	
@@ -14,14 +15,10 @@
 <body>
 	<div class="loggedIn banner">
 		<i class="fa-regular fa-pen-to-square"></i>
-	</div>
+		<p>Mode édition</p>
+		<button>Publier les changements</button>
 	</div>
 <header>
-	<section id="editBanner" class="editBanner" style="display: none;">   <p class="editBannerElement"> 
-        <i class="fa fa-light fa-pen-to-square" aria-hidden="true"></i> 
-        Mode Edition</p>
-        <button id="publishChange" class="publishBtn editBannerElement">publier les changements</button>
-    </section>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
@@ -37,7 +34,7 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<a class="link-modal-intro"><i class="fa-regular fa-pen-to-square"></i> </a>
+			<a class="link-modal-intro"><i class="fa-regular fa-pen-to-square"></i>Modifier </a>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -51,7 +48,7 @@
 			</div>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets<span class="loggedIn"><a class="link-modal"><i class="fa-regular fa-pen-to-square"></i> modifier</a></span></h2>
+		<h2>Mes Projets<span class="loggedIn"><a class="link-modal"><i class="fa-regular fa-pen-to-square"></i> Modifier</a></span></h2>
 
 		<!-- ajout du filtre -->
 		<div class="filtres"></div>
@@ -78,7 +75,6 @@
 
 	<aside id="modale" class="modale" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="modaleTitle" style="display:none">
         <div class="modale-wrapper modale-stop">
-        <a href="#" class="closeModale"><i class="fa-solid fa-x"></i></a>
         <div class="modale1">
             <h3 class="modaleTitle" id="modaleTitle">
                 Galerie Photo

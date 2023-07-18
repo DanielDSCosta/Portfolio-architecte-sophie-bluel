@@ -127,10 +127,10 @@ const changeLoginToLogout = () => {
 };
 
 // Récupérer les éléments de la modale
-const modale = document.getElementById("modale");
-const openModaleBtn = document.getElementById("picAddBtn");
+const modale = document.querySelector("modale");
+const openModaleBtn = document.querySelector("fa-regular fa-pen-to-square");
 const closeModaleBtn = document.querySelector(".closeModale");
-const selfDestructBtn = document.getElementById("selfDestructBtn");
+const selfDestructBtn = document.querySelector("selfDestructBtn");
 const arrowLeftBtn = document.querySelector(".arrowLeft");
 const modale2 = document.querySelector(".modale2");
 

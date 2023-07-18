@@ -310,7 +310,7 @@ footer nav ul {
 
 /* Pour le banner en mode edition */
 .banner {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #000;
@@ -400,11 +400,11 @@ li a:hover {
 }
 
 #portfolio .link-modal {
-  display: none;
+  display: flex;
   cursor: pointer;
 }
 .link-modal-intro {
-  display: none;
+  display: flex;
   margin-top: 20px;
 }
 /* css pour les boutons */
@@ -820,7 +820,7 @@ footer {
 }
 
 #imageInput {
-  display: none;
+  display: flex;
 }
 
 .addImgLabel:hover {
