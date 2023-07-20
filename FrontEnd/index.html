@@ -7,13 +7,13 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-	<link rel=“stylesheet” href=“https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css” integrity=“sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==” crossorigin=“anonymous” referrerpolicy=“no-referrer”>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	
 </head>
 <body>
-	<div class="loggedIn banner">
+	<div class="loggedIn banner" id="loggedin-banner">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<p>Mode édition</p>
 		<button>Publier les changements</button>
@@ -34,7 +34,7 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<a class="link-modal-intro"><i class="fa-regular fa-pen-to-square"></i>Modifier </a>
+			<span class="loggedIn loggedin-modif"><button class="changeButton"><i class="fa-regular fa-pen-to-square"></i> Modifier</button> </span>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -42,22 +42,19 @@
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
-		<div id="editProfilePicPrompt" class="editProfilePicPrompt" style="display: none;"><p class="editProfilePicInnerText"><a href="#modale" class="openModale">
-			<i class="fa fa-light fa-pen-to-square" aria-hidden="true"></i> 
-			modifier </a></p>
+		
 			</div>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets<span class="loggedIn"><a class="link-modal"><i class="fa-regular fa-pen-to-square"></i> Modifier</a></span></h2>
+		<div class="Project">
+			<h2>Mes Projets
+			<button id="open-gallery-modal-button" class="changeButton loggedin-modif"><i class="fa-regular fa-pen-to-square"></i>modifier</button></h2>
+		</div>
 
 		<!-- ajout du filtre -->
 		<div class="filtres"></div>
 		<div class="gallery"></div>
-		<a href="#modale" class="openModale">
-			<i class="fa fa-light fa-pen-to-square" aria-hidden="true"></i> 
-			modifier </a>
-			
-		</section>
+	</section>
 
 	<section id="contact">
 		<h2>Contact</h2>
@@ -73,14 +70,14 @@
 		</form>
 	</section>
 
-	<aside id="modale" class="modale" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="modaleTitle" style="display:none">
-        <div class="modale-wrapper modale-stop">
+	<div id="modal-gallery" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modaleTitle" style="display:none">
+        <div class="modal-wrapper modal-stop">
         <div class="modale1">
             <h3 class="modaleTitle" id="modaleTitle">
                 Galerie Photo
             </h3>
+			<div id="close-gallery-modal-button"><i class="fa-solid fa-xmark"></i></div>
             <div class="modaleContentCatalogue" id="modaleContentCatalogue">
-            
             </div> 
             <div class="modaleContentAddWorks" id="modaleContentAddworks">
                 
@@ -117,7 +114,7 @@
                   </div>
                            
                 </div>
-    </div></div></aside>
+    </div></div></div>
 
 </main>
 
