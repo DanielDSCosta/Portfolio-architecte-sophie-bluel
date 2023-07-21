@@ -33,8 +33,8 @@
 	
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-			<span class="loggedIn loggedin-modif"><button class="changeButton"><i class="fa-regular fa-pen-to-square"></i> Modifier</button> </span>
+		 <img src="./assets/images/sophie-bluel.png" alt="">
+			<span class="loggedIn loggedin-modif-intro"><button class="changeButton"><i class="fa-regular fa-pen-to-square"></i> Modifier</button> </span>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -48,7 +48,7 @@
 	<section id="portfolio">
 		<div class="Project">
 			<h2>Mes Projets
-			<button id="open-gallery-modal-button" class="changeButton loggedin-modif"><i class="fa-regular fa-pen-to-square"></i>modifier</button></h2>
+			<button id="open-gallery-modal-button" class="first-button changeButton loggedin-modif"><i class="fa-regular fa-pen-to-square"></i>modifier</button></h2>
 		</div>
 
 		<!-- ajout du filtre -->
@@ -70,51 +70,59 @@
 		</form>
 	</section>
 
-	<div id="modal-gallery" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modaleTitle" style="display:none">
-        <div class="modal-wrapper modal-stop">
-        <div class="modale1">
-            <h3 class="modaleTitle" id="modaleTitle">
-                Galerie Photo
-            </h3>
-			<div id="close-gallery-modal-button"><i class="fa-solid fa-xmark"></i></div>
-            <div class="modaleContentCatalogue" id="modaleContentCatalogue">
-            </div> 
-            <div class="modaleContentAddWorks" id="modaleContentAddworks">
-                
-                <input type="submit" value="Ajouter une photo" id="picAddBtn">
-                <a href="#" id="selfDestructBtn">Supprimer la galerie</a>
-            </div>
-        </div>
-        <div class="modale2" style="display: none;">
-            <a href="#" class="arrowLeft"> <i class="fa fa-light fa-arrow-left" aria-hidden="true"></i></a>
-            <h3 class="modaleTitle" id="modaleTitle">
-                Ajout photo
-            </h3>
-                <div class="divAjoutPhotos" id="divAjoutPhotos">
-                   
-                    <div class="divAddWork">
-                    <div class="addWorkFormDiv">
-                    <form class="addWorkForm" method="post">
-                    <div class="dropzone" id="dropzone">
-                    <i class="fa fa-thin fa-image faAddImgSquare" aria-hidden="true"></i>
-                    <label class="addImgLabel"><p>+ Ajouter Photo </p><p class="addWorkFormMandatoryStar">*</p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required=""> </label>
-                    <p> jpg, png: 4mo max</p>
-                    </div>
-                      
-                        <label class="addWorkLabel"><p>Titre</p> <p class="addWorkFormMandatoryStar">*</p></label>
-                        <input class="addWorkTitle" name="title" required="">
-                        <label class="addWorkLabel"><p>Catégorie</p><p class="addWorkFormMandatoryStar">*</p></label>
-                        <select type="select" class="selectCategory" name="category" required="">
-                          <option value=""></option>
-                        <option class="selectCategoryElement" id="Objets" value="1">Objets</option><option class="selectCategoryElement" id="Appartements" value="2">Appartements</option><option class="selectCategoryElement" id="Hotels &amp; restaurants" value="3">Hotels &amp; restaurants</option></select>
-                        <hr class="hrLineAddWorkForm">
-                        <input type="submit" value="Ajouter Photo" id="confirmAddWork">
-                      </form>
-                    </div>
-                  </div>
-                           
-                </div>
-    </div></div></div>
+	<div class="modal" id="modal-gallery">
+		<div class="modal-container">
+			<button class="close-gallery-modal-button"><i class="fa-solid fa-xmark"></i></button>
+			<h3>Galerie photo</h3>
+			<div class="galleryModal"></div>
+			<button class="btn-ajouter">Ajouter une photo</button><br>
+			<button class="btn-supprimer">Supprimer la galerie</button>
+		</div>
+	</div>
+
+	<div class="modal modal-two">
+		<div class="modal-container">
+			<button class="modal-return-btn" ><i class="fa-solid fa-arrow-left-long"></i></button>
+			<button class="close-gallery-modal-button"><i class="fa-solid fa-xmark"></i></button>
+			<h3>Ajout photo</h3>
+			<form id="form-new-works">
+				<div class="image-container">
+					<img id="example-img" src="./assets/icons/picture-svg.svg" alt="empty picture">
+					<img id="file-img" class="hidden" src="#" alt="your image">
+		
+					<div id="input-image-container">
+						<label class="file-label" for="img-input">+ Ajouter photo
+						<input type="file"
+							   id="img-input"
+							   name="file"
+							   accept="image/png, image/jpeg">
+						</label>
+					</div>
+					<span id="image-restriction">jpg, png : 4mo max</span>
+				</div>
+		
+				<div class="title">
+					<label for="title-input">Titre</label>
+					<input type="text" 
+						   name="title" 
+						   id="title-input">
+				</div>
+		
+				<div class="category">
+					<label for="category">Catégorie</label>
+					<select name="category" id="category">
+						<option value="0" disabled selected hidden>Choisir Catégorie</option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hotels & restaurants</option>
+					</select>
+					<span id="error-msg" class="error"></span>
+				</div>
+				<input class="btn-valider" type="submit" value="Valider">
+				</form>
+			
+		</div>
+	</div>
 
 </main>
 

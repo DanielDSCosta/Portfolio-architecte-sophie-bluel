@@ -98,22 +98,22 @@ document
 const logoutElement = document.getElementById("logout");
 const token = localStorage.getItem("token");
 const isLoggedIn = !!token;
-
+const filtres = document.querySelector(".filtres");
 const loggedInBannerElement = document.querySelector("#loggedin-banner");
-const loggedInModifElement = document.querySelectorAll(".loggedin-modif");
+const loggedInModifFirstElement = document.querySelector(
+  ".loggedin-modif-intro"
+);
+const loggedInModifSecondElement = document.querySelector(".loggedin-modif");
 
 loggedInBannerElement.style.display = isLoggedIn ? "flex" : "none";
 logoutElement.textContent = isLoggedIn ? "logout" : "login";
+loggedInModifFirstElement.style.display = isLoggedIn ? "flex" : "none";
+loggedInModifSecondElement.style.display = isLoggedIn ? "inline" : "none";
+filtres.style.display = isLoggedIn ? "none" : "flex";
 
 logoutElement.addEventListener("click", () => {
   localStorage.clear("token");
 });
-
-console.log(logoutElement);
-console.log(token);
-console.log(isLoggedIn);
-console.log(loggedInBannerElement);
-console.log(loggedInModifElement);
 
 // Récupérer les éléments de la modal
 const modalGalleryElement = document.querySelector("#modal-gallery");
@@ -121,14 +121,16 @@ const openGalleryModalButtonElement = document.querySelector(
   "#open-gallery-modal-button"
 );
 const closeGalleryModalButtonElement = document.querySelector(
-  "#close-gallery-modal-button"
+  ".close-gallery-modal-button"
 );
 
-const closeGalleryModalIconElement = document.querySelector(
-  "#close-gallery-modal-icon"
-);
-const arrowLeftBtn = document.querySelector(".arrowLeft");
-const modale2 = document.querySelector(".modale2");
+const suppElement = document.querySelector(".btn-supprimer");
+const arrowLeftBtn = document.querySelector(".modal-return-btn");
+const secondmodalgallery = document.querySelector(".modal-two");
+
+console.log(suppElement);
+console.log(arrowLeftBtn);
+console.log(secondmodalgallery);
 
 openGalleryModalButtonElement.addEventListener("click", () => {
   modalGalleryElement.style.display = "flex";
@@ -139,7 +141,7 @@ closeGalleryModalButtonElement.addEventListener("click", () => {
 });
 
 // Gérer l'événement clic sur le bouton pour supprimer la galerie
-selfDestructBtn.addEventListener("click", function (event) {
+suppElement.addEventListener("click", function (event) {
   event.preventDefault(); // Empêcher le comportement de lien par défaut
   if (confirm("Voulez-vous vraiment supprimer la galerie?")) {
     // Code pour supprimer la galerie
@@ -151,13 +153,13 @@ selfDestructBtn.addEventListener("click", function (event) {
 // Gérer l'événement clic sur le bouton pour revenir à la modal principale depuis modale2
 arrowLeftBtn.addEventListener("click", function (event) {
   event.preventDefault(); // Empêcher le comportement de lien par défaut
-  modale2.style.display = "none"; // Cacher modale2
+  secondmodalgallery.style.display = "none"; // Cacher modale2
 });
 
 // Gérer l'événement clic sur le bouton "Ajouter une photo" pour afficher modale2
 openGalleryModalButtonElement.addEventListener("click", function (event) {
   event.preventDefault(); // Empêcher le comportement de lien par défaut
-  modale2.style.display = "block"; // Afficher modale2
+  secondmodalgallery.style.display = "block"; // Afficher modale2
 });
 
 /*const editLinks = document.querySelectorAll(".link-modal");
