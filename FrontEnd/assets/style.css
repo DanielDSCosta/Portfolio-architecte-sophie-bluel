@@ -130,7 +130,6 @@ table {
 }
 /** end reset css**/
 body {
-  /* max-width: 1140px; */
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
@@ -189,11 +188,6 @@ li:hover {
 }
 #introduction figure {
   flex: 1;
-}
-#introduction img {
-  display: block;
-  margin: auto;
-  width: 80%;
 }
 
 #introduction article {
@@ -358,6 +352,12 @@ li:hover,
 li a:hover {
   color: #b1663c;
 }
+
+main {
+  max-width: 1024px;
+  margin: auto;
+}
+
 #main-login {
   margin-bottom: 355px;
 }
@@ -616,9 +616,26 @@ footer {
   align-items: center;
 }
 
-.modal-close-btn,
-.modal-two-close-btn,
+.close-gallery-modal-button,
+.close-gallery-second-modal-button {
+  position: relative;
+  left: 260px;
+  top: 6px;
+  background-color: #fff;
+  border: none;
+}
+
 .modal-return-btn {
+  position: relative;
+  height: 18px;
+  width: 21px;
+  background-color: #fff;
+  border: none;
+  top: 22px;
+  left: -260px;
+}
+
+.modal-container .close-gallery-modal-button {
   position: relative;
   left: 260px;
   top: 20px;
@@ -626,12 +643,10 @@ footer {
   border: none;
 }
 
-.modal-return-btn {
-  left: -260px;
-  top: 35px;
-}
 .modal-container h3 {
   padding: 20px 0 30px 0;
+  font-size: 26px;
+  font-weight: 500;
 }
 .galleryModal {
   display: flex;
@@ -672,7 +687,6 @@ hr {
   margin-bottom: 40px;
 }
 .btn-ajouter,
-.btn-supprimer,
 .btn-valider {
   background-color: #1d6154;
   color: #fff;
@@ -716,7 +730,7 @@ hr {
   background-color: #fff;
 }
 
-#form-new-works {
+#new-form {
   width: 75%;
 }
 
@@ -764,7 +778,7 @@ input[type="file"] {
 
 .title label,
 .category label {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 14px;
   line-height: 16px;
   color: #3d3d3d;

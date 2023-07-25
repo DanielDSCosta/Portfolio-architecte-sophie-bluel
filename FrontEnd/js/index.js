@@ -7,6 +7,7 @@ async function fetchWorks() {
   const data = await response.json();
   works = data;
   createGallery(works);
+  createModalGallery(works);
 }
 fetchWorks();
 
@@ -123,14 +124,14 @@ const openGalleryModalButtonElement = document.querySelector(
 const closeGalleryModalButtonElement = document.querySelector(
   ".close-gallery-modal-button"
 );
+const closeGallerysecondModalButtonElement = document.querySelector(
+  ".close-gallery-second-modal-button"
+);
 
 const suppElement = document.querySelector(".btn-supprimer");
 const arrowLeftBtn = document.querySelector(".modal-return-btn");
 const secondmodalgallery = document.querySelector(".modal-two");
-
-console.log(suppElement);
-console.log(arrowLeftBtn);
-console.log(secondmodalgallery);
+const buttonAjouterElement = document.querySelector(".btn-ajouter");
 
 openGalleryModalButtonElement.addEventListener("click", () => {
   modalGalleryElement.style.display = "flex";
@@ -139,48 +140,205 @@ openGalleryModalButtonElement.addEventListener("click", () => {
 closeGalleryModalButtonElement.addEventListener("click", () => {
   modalGalleryElement.style.display = "none";
 });
+closeGallerysecondModalButtonElement.addEventListener("click", () => {
+  secondmodalgallery.style.display = "none";
+});
 
-// Gérer l'événement clic sur le bouton pour supprimer la galerie
-suppElement.addEventListener("click", function (event) {
-  event.preventDefault(); // Empêcher le comportement de lien par défaut
-  if (confirm("Voulez-vous vraiment supprimer la galerie?")) {
-    // Code pour supprimer la galerie
-    console.log("Galerie supprimée !");
-    closeModale(); // Fermer la modal après la suppression
+const closeModal = () => {
+  modalGalleryElement.style.display = "none";
+  secondmodalgallery.style.display = "none";
+};
+
+// J'ecoute le autour la modale pour fermer la modale
+addEventListener("click", (e) => {
+  if (e.target === modalGalleryElement || e.target === secondmodalgallery) {
+    closeModal();
   }
 });
 
-// Gérer l'événement clic sur le bouton pour revenir à la modal principale depuis modale2
+// J'ecoute l'appuie sur la touche esc pour fermer la modale
+addEventListener("keydown", (e) => {
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeModal();
+  }
+});
+
 arrowLeftBtn.addEventListener("click", function (event) {
-  event.preventDefault(); // Empêcher le comportement de lien par défaut
-  secondmodalgallery.style.display = "none"; // Cacher modale2
+  event.preventDefault();
+  secondmodalgallery.style.display = "none";
+  modalGalleryElement.style.display = "flex";
 });
 
-// Gérer l'événement clic sur le bouton "Ajouter une photo" pour afficher modale2
-openGalleryModalButtonElement.addEventListener("click", function (event) {
-  event.preventDefault(); // Empêcher le comportement de lien par défaut
-  secondmodalgallery.style.display = "block"; // Afficher modale2
+buttonAjouterElement.addEventListener("click", function (event) {
+  event.preventDefault();
+  secondmodalgallery.style.display = "flex";
+  modalGalleryElement.style.display = "none";
 });
 
-/*const editLinks = document.querySelectorAll(".link-modal");
+const galleryModal = document.querySelector(".galleryModal");
 
-const updateButtonVisibility = () => {
-  const isLoggedInUser = isLoggedIn; // Utilisez la variable isLoggedIn pour vérifier l'état de connexion
-  const logoutElement = document.getElementById("logout");
-  logoutElement.textContent = "logout";
-  logoutElement.addEventListener("click", () => {
-    localStorage.clear("token");
-  });
-
-  // Utilisez editLinks au lieu de editButtons
-  editLinks.forEach((link) => {
-    // Affiche le bouton si l'utilisateur est connecté
-    // ou masque le bouton si l'utilisateur n'est pas connecté
-    link.style.display = isLoggedInUser ? "block" : "none";
-  });
+// Je cree la gallery dans le modal
+const createModalGallery = (objet) => {
+  let galleries = "";
+  for (let work of objet) {
+    galleries += `
+    <figure class="gallery-modal-work">
+        <img src="${work.imageUrl}">
+        <i class="fa-solid fa-trash-can delete" id="${work.id}"></i>
+        <figcaption>éditer</figcaption>
+    </figure>`;
+  }
+  galleryModal.innerHTML = galleries;
+  deleteWork();
 };
 
-// Appelez la fonction pour mettre à jour la visibilité des boutons au chargement de la page.
-document.addEventListener("DOMContentLoaded", () => {
-  updateButtonVisibility();
-});*/
+//Supprimer gallery
+
+const deleteWork = () => {
+  const arrays = document.querySelectorAll(".delete");
+  for (work of arrays) {
+    work.addEventListener("click", (e) => {
+      fetch("http://localhost:5678/api/works/" + e.target.id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            newGallery();
+            confirm("Voulez-vous vraiment supprimer la galerie?");
+            console.log("Galerie supprimée !");
+          }
+        })
+        .catch((error) => {
+          console.log("Une erreur c'est produite" + error);
+        });
+      console.log(e.target.id);
+    });
+  }
+};
+
+suppElement.addEventListener("click", function (event) {
+  event.preventDefault();
+  if (confirm("Voulez-vous vraiment supprimer la galerie?")) {
+    console.log("Galerie supprimée !");
+    closeModale();
+  }
+});
+
+// Je fais la mise a jour des galeries
+const newGallery = () => {
+  fetch("http://localhost:5678/api/works/")
+    .then((resp) => resp.json())
+    .then((data) => {
+      createGallery(data);
+      createModalGallery(data);
+    });
+};
+
+// Deuxième modal
+
+const newWorksForm = document.getElementById("new-form");
+const inputImageContainer = document.getElementById("input-image-container");
+const exampleImage = document.getElementById("example-img");
+const fileImage = document.getElementById("file-img");
+const imageInput = document.getElementById("img-input");
+const imageRestriction = document.getElementById("image-restriction");
+
+// Fonction pour effacer la formulaire modale 2
+const clearModalTwo = () => {
+  newWorksForm.reset();
+  inputImageContainer.style.display = "flex";
+  exampleImage.style.display = "flex";
+  fileImage.style.display = "none";
+  imageRestriction.style.display = "flex";
+};
+
+// J'ecoute si la photo est selectione, j'efface le contenue du containeur
+// et je remplace avec une photo miniature
+imageInput.onchange = () => {
+  const [file] = imageInput.files;
+  if (file) {
+    fileImage.src = URL.createObjectURL(file);
+    inputImageContainer.style.display = "none";
+    imageRestriction.style.display = "none";
+    exampleImage.style.display = "none";
+    fileImage.style.display = "flex";
+  }
+};
+
+//Validation
+
+const fileValue = document.querySelector('input[type="file"]');
+const titleValue = document.getElementById("title-input");
+const categoryValue = document.getElementById("category");
+const buttonValidate = document.querySelector(".btn-valider");
+
+const errorMsg = document.getElementById("error-msg");
+
+// Je recupere les info du formulaire et cree une objet
+// J'envoie au backend
+const fetchNewWorks = () => {
+  const formData = new FormData();
+  formData.append("image", fileValue.files[0]);
+  formData.append("title", titleValue.value);
+  formData.append("category", Number(categoryValue.value));
+
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      addNewWorkGallery(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+// J'ecoute le bouton valider si toutes les champs sont remplis sinon message d'erreur
+newWorksForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  fetchNewWorks();
+  if (
+    titleValue.value === "" ||
+    Number(categoryValue.value) === 0 ||
+    fileValue.files[0] === undefined
+  ) {
+    errorMsg.innerText = "Veuillez remplir tous les champs pour continuer.";
+  }
+  clearModalTwo();
+});
+
+// Je recupere les travaux et je mets les galeries a jour
+const addNewWorkGallery = () => {
+  fetch("http://localhost:5678/api/works/")
+    .then((resp) => resp.json())
+    .then((data) => {
+      createGallery(data);
+      createModalGallery(data);
+    });
+};
+
+// Je check si tout est remplis dans la form et je change la couleur du bouton valider
+titleValue.addEventListener("change", checkForm);
+categoryValue.addEventListener("change", checkForm);
+fileValue.addEventListener("change", checkForm);
+
+function checkForm() {
+  if (
+    titleValue.value !== "" &&
+    categoryValue.value !== "" &&
+    fileValue.files[0] !== undefined
+  ) {
+    buttonValidate.style.backgroundColor = "#1D6154";
+    errorMsg.innerText = "";
+  } else {
+    buttonValidate.style.backgroundColor = "#A7A7A7";
+  }
+}
